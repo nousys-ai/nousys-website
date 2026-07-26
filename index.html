@@ -1,122 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nousys AI — Coming Soon</title>
-  <meta name="description" content="Nousys AI — Something new is on the way.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nousys AI — Engineering the self-awareness that makes autonomy possible</title>
+<meta name="description" content="Nousys AI is an independent research and engineering company developing reflective AI architectures: intelligent systems that monitor, evaluate, and improve their own reasoning.">
+<meta property="og:title" content="Nousys AI">
+<meta property="og:description" content="Engineering the self-awareness that makes autonomy possible.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nousys.ai/">
+<link rel="canonical" href="https://nousys.ai/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#13161a;
+    --paper:#f4f6f3;
+    --paper-alt:#eaeee9;
+    --slate:#5c6670;
+    --verdigris:#2e6b5e;
+    --verdigris-soft:rgba(46,107,94,.09);
+    --rule:#d6dcd5;
 
-    :root {
-      --bg: #f6f4f0;
-      --fg: #1a1a1e;
-      --accent: #2d5a8e;
-      --muted: #8e8b83;
-      --line: #ccc8be;
+    --display:"Newsreader",Georgia,"Times New Roman",serif;
+    --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --measure:64ch;
+    --gutter:clamp(1.25rem,5vw,4.5rem);
+    --section-gap:clamp(4.5rem,9vw,8rem);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e8ebe7;
+      --paper:#101318;
+      --paper-alt:#151a1f;
+      --slate:#94a0a6;
+      --verdigris:#69b0a0;
+      --verdigris-soft:rgba(105,176,160,.12);
+      --rule:#252d33;
     }
+  }
 
-    html, body { height: 100%; }
+  *,*::before,*::after{box-sizing:border-box}
 
-    body {
-      font-family: 'Manrope', sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-    /* fine grain texture */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%231a1a1e' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:clamp(1rem,.95rem + .2vw,1.0625rem);
+    line-height:1.68;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
 
-    .container {
-      text-align: center;
-      padding: 2rem;
-      animation: reveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
+  a{color:inherit}
+  ::selection{background:var(--verdigris);color:var(--paper)}
 
-    .brand {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: var(--fg);
-      margin-bottom: 0.3rem;
-    }
+  .wrap{max-width:76rem;margin:0 auto;padding-inline:var(--gutter)}
 
-    .brand span {
-      font-weight: 400;
-      font-style: italic;
-      color: var(--accent);
-    }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.6875rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--verdigris);
+    margin:0;
+  }
 
-    .tagline {
-      font-size: 0.8rem;
-      font-weight: 300;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 2.8rem;
-    }
+  /* ---------- sticky nav ---------- */
+  .bar{
+    position:fixed;inset-inline:0;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:1.5rem;
+    max-width:76rem;margin-inline:auto;
+    padding:.75rem var(--gutter);
+    background:var(--paper);
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+    transform:translateY(-105%);
+    transition:transform .35s ease;
+  }
+  .bar.is-visible{transform:translateY(0)}
+  @supports not (backdrop-filter:blur(4px)){.bar{background:var(--paper)}}
 
-    .rule {
-      width: 48px;
-      height: 1px;
-      background: var(--line);
-      margin: 0 auto 2.8rem;
-      animation: grow 1s 0.6s ease-out both;
-    }
+  .bar__name{
+    font-family:var(--display);
+    font-size:1.0625rem;
+    letter-spacing:.005em;
+    text-decoration:none;
+  }
+  .bar__nav{display:flex;gap:clamp(.9rem,2vw,1.75rem);flex-wrap:wrap}
+  .bar__nav a{
+    font-family:var(--mono);
+    font-size:.6875rem;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--slate);
+    text-decoration:none;
+    padding-block:.25rem;
+    border-bottom:1px solid transparent;
+    transition:color .2s,border-color .2s;
+  }
+  .bar__nav a:hover,.bar__nav a:focus-visible{color:var(--verdigris);border-bottom-color:var(--verdigris)}
+  @media (max-width:34rem){.bar__nav{display:none}}
 
-    .coming-soon {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--muted);
-      animation: reveal 1.4s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
+  /* ---------- masthead ---------- */
+  .masthead{
+    padding-block:clamp(2.25rem,4vw,3.25rem) clamp(3rem,6vw,4.75rem);
+    border-bottom:1px solid var(--rule);
+  }
 
-    .dots { display: inline-block; width: 1.5em; text-align: left; }
-    .dots::after {
-      content: '';
-      animation: dots 2s steps(4, end) infinite;
-    }
+  .brand{display:flex;align-items:center;gap:.7rem;margin-bottom:clamp(2.25rem,4.5vw,3.5rem)}
+  .brand svg{flex:none;color:var(--verdigris)}
+  .brand__word{
+    font-family:var(--display);
+    font-size:clamp(1.25rem,1.1rem + .5vw,1.5rem);
+    font-weight:400;
+    letter-spacing:.01em;
+    margin:0;
+  }
 
-    @keyframes dots {
-      0%  { content: ''; }
-      25% { content: '.'; }
-      50% { content: '..'; }
-      75% { content: '...'; }
-    }
+  @media (max-width:34rem){
+    .brand{margin-bottom:2rem}
+    .masthead{padding-block:2rem 2.75rem}
+  }
 
-    @keyframes reveal {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+  .tagline{
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(1.75rem,1.1rem + 2.8vw,3.15rem);
+    line-height:1.1;
+    letter-spacing:-.018em;
+    margin:0;
+    text-wrap:balance;
+  }
+  .tagline em{font-style:italic;color:var(--verdigris)}
 
-    @keyframes grow {
-      from { width: 0; opacity: 0; }
-      to   { width: 48px; opacity: 1; }
-    }
-  </style>
+  /* ---------- sections ---------- */
+  .section{padding-block:var(--section-gap);border-bottom:1px solid var(--rule)}
+  .section--tint{background:var(--paper-alt)}
+
+  .section__head{
+    display:grid;
+    grid-template-columns:minmax(0,14rem) minmax(0,1fr);
+    gap:clamp(1rem,4vw,3rem);
+    align-items:start;
+    margin-bottom:clamp(2.25rem,4vw,3.25rem);
+  }
+  .section__head .eyebrow{padding-top:.6rem}
+  @media (max-width:48rem){
+    .section__head{grid-template-columns:1fr;gap:.6rem}
+    .section__head .eyebrow{padding-top:0}
+  }
+
+  .section__title{
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(1.9rem,1.4rem + 1.8vw,3rem);
+    line-height:1.08;
+    letter-spacing:-.018em;
+    margin:0;
+  }
+
+  /* label / paragraph pairs */
+  .glosses{display:grid;gap:clamp(2rem,3.5vw,2.75rem)}
+  .gloss{
+    display:grid;
+    grid-template-columns:minmax(0,14rem) minmax(0,1fr);
+    gap:clamp(1rem,4vw,3rem);
+    align-items:start;
+  }
+  @media (max-width:48rem){
+    .gloss{grid-template-columns:1fr;gap:.65rem}
+  }
+  .gloss p{margin:0;max-width:var(--measure)}
+  .gloss__term{
+    font-family:var(--mono);
+    font-size:.6875rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--verdigris);
+    padding-top:.42rem;
+  }
+
+  .prose{display:grid;gap:1.5rem;max-width:var(--measure);margin-inline-start:clamp(0rem,0vw,0rem)}
+  .prose p{margin:0}
+  .prose--indent{margin-inline-start:0}
+  @media (min-width:48rem){
+    .prose--indent{margin-inline-start:calc(14rem + clamp(1rem,4vw,3rem))}
+  }
+
+  /* research areas */
+  .areas{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+  }
+  @media (min-width:44rem){
+    .areas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  .area{background:var(--paper);padding:clamp(1.4rem,2.8vw,2.25rem)}
+  .section--tint .area{background:var(--paper-alt)}
+  .area h3{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:1.1875rem;
+    line-height:1.25;
+    letter-spacing:-.005em;
+    margin:0 0 .55rem;
+  }
+  .area p{margin:0;max-width:46ch;font-size:.9375rem;line-height:1.6;color:var(--slate)}
+  .area:hover{background:var(--verdigris-soft)}
+  .section--tint .area:hover{background:var(--verdigris-soft)}
+
+  .areas__lede{margin:0 0 clamp(1.75rem,3vw,2.25rem);max-width:var(--measure);color:var(--slate)}
+
+  /* foundations extras */
+  .refs{list-style:none;margin:2.25rem 0 0;padding:0;display:grid;gap:.9rem;max-width:var(--measure)}
+  .refs li{display:grid;gap:.15rem;padding-top:.9rem;border-top:1px solid var(--rule)}
+  .refs__label{
+    font-family:var(--mono);font-size:.625rem;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--verdigris);
+  }
+  .refs__title{font-size:.9375rem;line-height:1.5}
+  .refs a{
+    font-family:var(--mono);font-size:.75rem;color:var(--slate);
+    text-decoration:none;border-bottom:1px solid var(--rule);
+    justify-self:start;
+    transition:color .2s,border-color .2s;
+  }
+  .refs a:hover,.refs a:focus-visible{color:var(--verdigris);border-bottom-color:var(--verdigris)}
+
+  /* contact */
+  .contact__link{
+    display:inline-block;
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(1.35rem,1rem + 2vw,2.35rem);
+    letter-spacing:-.015em;
+    text-decoration:none;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:.12em;
+    transition:color .2s,border-color .2s;
+    word-break:break-word;
+  }
+  .contact__link:hover,.contact__link:focus-visible{color:var(--verdigris);border-bottom-color:var(--verdigris)}
+
+  footer{padding-block:2.5rem 3rem}
+  .foot{
+    display:flex;flex-wrap:wrap;gap:.75rem 2rem;
+    align-items:baseline;justify-content:space-between;
+    font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--slate);
+  }
+
+  /* reveal — only ever hidden when JS is confirmed running */
+  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+  .js .reveal.is-in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .js .reveal{opacity:1;transform:none;transition:none}
+  }
+
+  :focus-visible{outline:2px solid var(--verdigris);outline-offset:3px}
+
+  .skip{
+    position:absolute;left:-9999px;top:0;z-index:100;
+    background:var(--ink);color:var(--paper);
+    padding:.6rem 1rem;font-family:var(--mono);font-size:.75rem;
+  }
+  .skip:focus{left:var(--gutter);top:.5rem}
+</style>
+<script>
+  /* Opt in to the reveal animation only when the browser can drive it.
+     Without this the sections would sit at opacity:0 if the script never runs. */
+  if ('IntersectionObserver' in window) document.documentElement.className += ' js';
+</script>
 </head>
 <body>
-  <div class="container">
-    <h1 class="brand">Nousys <span>AI</span></h1>
-    <p class="tagline">Intelligent Systems</p>
-    <div class="rule"></div>
-    <p class="coming-soon">Coming Soon<span class="dots"></span></p>
+
+<a class="skip" href="#about">Skip to content</a>
+
+<div class="bar" id="bar">
+  <a class="bar__name" href="#top">Nousys&nbsp;AI</a>
+  <nav class="bar__nav" aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#purpose">Purpose</a>
+    <a href="#research">Research</a>
+    <a href="#foundations">Foundations</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<header class="masthead" id="top">
+  <div class="wrap">
+
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4">
+        <circle cx="13" cy="13" r="10.2" stroke-dasharray="52 12" stroke-linecap="round"/>
+        <path d="M13 4.6 A 4.6 4.6 0 1 1 13 13" stroke-linecap="round"/>
+      </svg>
+      <p class="brand__word">Nousys AI</p>
+    </div>
+
+    <h1 class="tagline">Engineering the self&#8288;-&#8288;awareness that makes <em>autonomy</em> possible</h1>
+
   </div>
+</header>
+
+<main>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Nous&nbsp;+ Systems&nbsp;+ AI</p>
+        <h2 class="section__title">About</h2>
+      </div>
+
+      <div class="glosses">
+        <div class="gloss reveal">
+          <p class="gloss__term">Nous</p>
+          <p>Nous is the ancient Greek word for mind. Aristotle and Plotinus described it as the faculty of intellect that can take itself as its own object. It is the capacity for thought to examine and understand its own activity.</p>
+        </div>
+
+        <div class="gloss reveal">
+          <p class="gloss__term">Systems</p>
+          <p>Systems reflects a founding conviction that advanced intelligence emerges from the integration of perception, reasoning, memory, learning, control, and continuous feedback within well-engineered architectures. Intelligence is a property of complete systems rather than isolated models.</p>
+        </div>
+
+        <div class="gloss reveal">
+          <p class="gloss__term">AI</p>
+          <p>Nousys AI is an independent research and engineering company dedicated to the development of reflective AI architectures for autonomous systems. Its research focuses on intelligent systems that monitor, evaluate, and improve their own reasoning through quantified uncertainty, metacognitive monitoring, and closed-loop governance. These architectures are designed to recognize the boundaries of their own competence and intervene before errors propagate into failures. Research spans the complete engineering lifecycle from foundational architecture through software, robotics, and deployed autonomous systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="philosophy">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Position</p>
+        <h2 class="section__title">Philosophy</h2>
+      </div>
+
+      <div class="prose prose--indent reveal">
+        <p>Nousys AI treats functional self-awareness as an engineering problem that can be specified, implemented, and evaluated. It is realized through measurable capabilities including a persistent self-model, quantified uncertainty, metacognitive monitoring, and a governance framework with the authority to intervene. Trustworthy autonomy requires a system to recognize the boundaries of its own competence and adapt its behavior accordingly.</p>
+        <p>These capabilities are measurable regardless of whether a machine possesses conscious experience. Nousys AI studies consciousness as a separate scientific and engineering problem with its own conceptual and empirical challenges. Conscious experience, conscious awareness, and subjective experience are treated as distinct concepts that require independent definitions, theoretical frameworks, and methods of evaluation. Maintaining this distinction is fundamental to both research directions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="purpose">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Why it matters</p>
+        <h2 class="section__title">Purpose</h2>
+      </div>
+
+      <div class="prose prose--indent reveal">
+        <p>Nousys AI exists to engineer intelligent systems that understand the limits of their own competence. Autonomous systems inevitably encounter conditions that differ from those represented in their training data. Reliable operation depends not only on perception, reasoning, and decision making, but also on the ability to evaluate the validity of those processes as conditions change.</p>
+        <p>Self-knowledge is treated as an architectural capability rather than an emergent property. It is designed into the system through persistent self-models, quantified uncertainty, metacognitive monitoring, and closed-loop governance. Systems that continuously estimate the boundaries of their own competence are better equipped to adapt, recover from error, and operate safely in complex environments.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="research">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Four areas</p>
+        <h2 class="section__title">Research Areas</h2>
+      </div>
+
+      <p class="areas__lede reveal">Four research areas define the work of Nousys AI.</p>
+
+      <div class="areas reveal">
+        <article class="area">
+          <h3>Reflective Architectures</h3>
+          <p>Architectures that enable intelligent systems to represent, monitor, and reason about their own internal state.</p>
+        </article>
+        <article class="area">
+          <h3>Embodied Autonomy</h3>
+          <p>Perception, planning, reasoning, and control for autonomous systems operating in dynamic physical environments.</p>
+        </article>
+        <article class="area">
+          <h3>Functional Self-Awareness</h3>
+          <p>The integration of self-representation, metacognition, self-monitoring, uncertainty estimation, and competence assessment into closed-loop governance, enabling autonomous systems to constrain, defer, revise, or halt their own actions.</p>
+        </article>
+        <article class="area">
+          <h3>Machine Consciousness</h3>
+          <p>Theoretical and engineering foundations for evaluating the conditions under which machine consciousness could arise and how such claims can be specified and empirically assessed.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="foundations">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Published record</p>
+        <h2 class="section__title">Foundations</h2>
+      </div>
+
+      <div class="prose prose--indent reveal">
+        <p>Nousys AI builds on a foundation of published research in artificial intelligence, systems engineering, robotics, and machine consciousness. Its research is informed by the work of founder Raghurami Reddy Etukuru, Ph.D., author of seven books, including <em>Consciousness in AI: Toward Conscious Machines</em>, <em>Engineering Functional Self-Awareness in AI Systems</em>, and <em>AI-Driven Time Series Forecasting</em>.</p>
+        <p>The Functional Self-Awareness Architecture was introduced in 2026 together with two companion preprints on machine consciousness. One examines the conditions required for machine consciousness, and the other proposes a theory of consciousness&ndash;machine coupling. Together, these works establish the conceptual and engineering foundations that guide the research conducted at Nousys AI.</p>
+
+        <ul class="refs">
+          <li>
+            <span class="refs__label">Preprint</span>
+            <span class="refs__title">Functional Self-Awareness Architecture for Regulated Autonomous Multi-Model AI Systems</span>
+            <a href="https://doi.org/10.5281/zenodo.18989897">doi.org/10.5281/zenodo.18989897</a>
+          </li>
+          <li>
+            <span class="refs__label">Preprint</span>
+            <span class="refs__title">Conditions for Machine Consciousness: A Three-Facet Framework</span>
+            <a href="https://doi.org/10.5281/zenodo.20417338">doi.org/10.5281/zenodo.20417338</a>
+          </li>
+          <li>
+            <span class="refs__label">Preprint</span>
+            <span class="refs__title">The Consciousness Interaction Theory</span>
+            <a href="https://doi.org/10.5281/zenodo.20433548">doi.org/10.5281/zenodo.20433548</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Correspondence</p>
+        <h2 class="section__title">Contact</h2>
+      </div>
+
+      <div class="prose prose--indent reveal">
+        <a class="contact__link" href="mailto:raghurami.etukuru@nousys.ai">raghurami.etukuru@nousys.ai</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>Nousys AI Inc.</span>
+    <span>&copy; 2026</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* sticky bar reveals once the masthead scrolls away */
+  var bar = document.getElementById('bar');
+  var top = document.getElementById('top');
+
+  if ('IntersectionObserver' in window && bar && top) {
+    new IntersectionObserver(function (entries) {
+      bar.classList.toggle('is-visible', !entries[0].isIntersecting);
+    }, { rootMargin: '-72px 0px 0px 0px' }).observe(top);
+  }
+
+  /* section reveal on scroll */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+
+  function showAll() {
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  if (!('IntersectionObserver' in window) || reduce.matches) {
+    showAll();
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -4% 0px' });
+
+    reveals.forEach(function (el) { io.observe(el); });
+
+    /* Failsafe: some in-app browsers and file previews never fire the
+       observer. If nothing has appeared shortly after load, show everything. */
+    setTimeout(function () {
+      var anyShown = reveals.some(function (el) {
+        return el.classList.contains('is-in');
+      });
+      if (!anyShown) showAll();
+    }, 1200);
+  }
+
+})();
+</script>
+
 </body>
 </html>

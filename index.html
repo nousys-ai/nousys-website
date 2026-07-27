@@ -10,6 +10,9 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nousys.ai/">
 <link rel="canonical" href="https://nousys.ai/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%228%2014%2085%2085%22%3E%3Crect%20x%3D%228%22%20y%3D%2214%22%20width%3D%2285%22%20height%3D%2285%22%20rx%3D%2214%22%20fill%3D%22%232e6b5e%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f6f8f6%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M%2024%2082%20L%2024%2038%20Q%2024%2026%2031.78%2035.13%20L%2068.22%2077.87%20Q%2076%2087%2076%2075%20L%2076%2048%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2232.18%22%20r%3D%226.2%22%20fill%3D%22%239fb6ff%22%2F%3E%3Ccircle%20cx%3D%2238.6%22%20cy%3D%2265.4%22%20r%3D%226.2%22%20fill%3D%22%239fb6ff%22%2F%3E%3C%2Fsvg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%228%2014%2085%2085%22%3E%3Crect%20x%3D%228%22%20y%3D%2214%22%20width%3D%2285%22%20height%3D%2285%22%20rx%3D%2214%22%20fill%3D%22%232e6b5e%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f6f8f6%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M%2024%2082%20L%2024%2038%20Q%2024%2026%2031.78%2035.13%20L%2068.22%2077.87%20Q%2076%2087%2076%2075%20L%2076%2048%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2232.18%22%20r%3D%226.2%22%20fill%3D%22%239fb6ff%22%2F%3E%3Ccircle%20cx%3D%2238.6%22%20cy%3D%2265.4%22%20r%3D%226.2%22%20fill%3D%22%239fb6ff%22%2F%3E%3C%2Fsvg%3E">
+<meta name="theme-color" content="#2e6b5e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -19,9 +22,10 @@
     --paper:#f4f6f3;
     --paper-alt:#eaeee9;
     --slate:#5c6670;
-    --verdigris:#2e6b5e;
-    --verdigris-soft:rgba(46,107,94,.09);
+    --accent:#2e6b5e;
+    --accent-soft:rgba(46,107,94,.09);
     --rule:#d6dcd5;
+    --dot:#3b5bdb;
 
     --display:"Newsreader",Georgia,"Times New Roman",serif;
     --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
@@ -38,9 +42,10 @@
       --paper:#101318;
       --paper-alt:#151a1f;
       --slate:#94a0a6;
-      --verdigris:#69b0a0;
-      --verdigris-soft:rgba(105,176,160,.12);
+      --accent:#69b0a0;
+      --accent-soft:rgba(105,176,160,.12);
       --rule:#252d33;
+      --dot:#7c95f0;
     }
   }
 
@@ -61,7 +66,7 @@
   }
 
   a{color:inherit}
-  ::selection{background:var(--verdigris);color:var(--paper)}
+  ::selection{background:var(--accent);color:var(--paper)}
 
   .wrap{max-width:76rem;margin:0 auto;padding-inline:var(--gutter)}
 
@@ -71,7 +76,7 @@
     font-weight:500;
     letter-spacing:.16em;
     text-transform:uppercase;
-    color:var(--verdigris);
+    color:var(--accent);
     margin:0;
   }
 
@@ -93,11 +98,15 @@
   @supports not (backdrop-filter:blur(4px)){.bar{background:var(--paper)}}
 
   .bar__name{
+    display:flex;align-items:center;gap:.45em;
     font-family:var(--display);
     font-size:1.0625rem;
-    letter-spacing:.005em;
+    letter-spacing:.014em;
     text-decoration:none;
+    color:var(--ink);
   }
+  .bar__mark{flex:none;width:1.7em;height:1.7em;margin-top:-.08em}
+  .bar__name .ai{margin-left:.2em}
   .bar__nav{display:flex;gap:clamp(.9rem,2vw,1.75rem);flex-wrap:wrap}
   .bar__nav a{
     font-family:var(--mono);
@@ -110,7 +119,7 @@
     border-bottom:1px solid transparent;
     transition:color .2s,border-color .2s;
   }
-  .bar__nav a:hover,.bar__nav a:focus-visible{color:var(--verdigris);border-bottom-color:var(--verdigris)}
+  .bar__nav a:hover,.bar__nav a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
   @media (max-width:34rem){.bar__nav{display:none}}
 
   /* ---------- masthead ---------- */
@@ -119,15 +128,32 @@
     border-bottom:1px solid var(--rule);
   }
 
-  .brand{display:flex;align-items:center;gap:.7rem;margin-bottom:clamp(2.25rem,4.5vw,3.5rem)}
-  .brand svg{flex:none;color:var(--verdigris)}
+  /* brand lockup: inline mark + live text, matching the horizontal lockup */
+  .brand{
+    display:flex;align-items:center;
+    gap:.52em;
+    margin-bottom:clamp(2.25rem,4.5vw,3.5rem);
+    font-size:clamp(1.25rem,1.1rem + .5vw,1.5rem);
+  }
+  .brand__mark{
+    flex:none;
+    width:1.85em;height:1.85em;
+    /* optically centre the mark on the cap band rather than the full text box */
+    margin-top:-.1em;
+  }
+  .brand__mark .stroke{stroke:var(--accent)}
+  .brand__mark .dot{fill:var(--dot)}
   .brand__word{
     font-family:var(--display);
-    font-size:clamp(1.25rem,1.1rem + .5vw,1.5rem);
+    font-size:1em;
     font-weight:400;
-    letter-spacing:.01em;
+    letter-spacing:.014em;
+    line-height:1;
     margin:0;
+    color:var(--ink);
   }
+  /* AI takes the same ink as the rest of the name; the span only sets the space */
+  .brand__word .ai{margin-left:.2em}
 
   @media (max-width:34rem){
     .brand{margin-bottom:2rem}
@@ -143,7 +169,7 @@
     margin:0;
     text-wrap:balance;
   }
-  .tagline em{font-style:italic;color:var(--verdigris)}
+  .tagline em{font-style:italic;color:var(--accent)}
 
   /* ---------- sections ---------- */
   .section{padding-block:var(--section-gap);border-bottom:1px solid var(--rule)}
@@ -189,7 +215,7 @@
     font-weight:500;
     letter-spacing:.16em;
     text-transform:uppercase;
-    color:var(--verdigris);
+    color:var(--accent);
     padding-top:.42rem;
   }
 
@@ -222,8 +248,8 @@
     margin:0 0 .55rem;
   }
   .area p{margin:0;max-width:46ch;font-size:.9375rem;line-height:1.6;color:var(--slate)}
-  .area:hover{background:var(--verdigris-soft)}
-  .section--tint .area:hover{background:var(--verdigris-soft)}
+  .area:hover{background:var(--accent-soft)}
+  .section--tint .area:hover{background:var(--accent-soft)}
 
   .areas__lede{margin:0 0 clamp(1.75rem,3vw,2.25rem);max-width:var(--measure);color:var(--slate)}
 
@@ -232,7 +258,7 @@
   .refs li{display:grid;gap:.15rem;padding-top:.9rem;border-top:1px solid var(--rule)}
   .refs__label{
     font-family:var(--mono);font-size:.625rem;letter-spacing:.15em;
-    text-transform:uppercase;color:var(--verdigris);
+    text-transform:uppercase;color:var(--accent);
   }
   .refs__title{font-size:.9375rem;line-height:1.5}
   .refs a{
@@ -241,7 +267,7 @@
     justify-self:start;
     transition:color .2s,border-color .2s;
   }
-  .refs a:hover,.refs a:focus-visible{color:var(--verdigris);border-bottom-color:var(--verdigris)}
+  .refs a:hover,.refs a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
 
   /* contact */
   .contact__link{
@@ -256,7 +282,7 @@
     transition:color .2s,border-color .2s;
     word-break:break-word;
   }
-  .contact__link:hover,.contact__link:focus-visible{color:var(--verdigris);border-bottom-color:var(--verdigris)}
+  .contact__link:hover,.contact__link:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
 
   footer{padding-block:2.5rem 3rem}
   .foot{
@@ -273,7 +299,7 @@
     .js .reveal{opacity:1;transform:none;transition:none}
   }
 
-  :focus-visible{outline:2px solid var(--verdigris);outline-offset:3px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
   .skip{
     position:absolute;left:-9999px;top:0;z-index:100;
@@ -293,7 +319,16 @@
 <a class="skip" href="#about">Skip to content</a>
 
 <div class="bar" id="bar">
-  <a class="bar__name" href="#top">Nousys&nbsp;AI</a>
+  <a class="bar__name" href="#top">
+    <svg class="bar__mark" viewBox="12.71 18.93 75.91 75.91" aria-hidden="true">
+      <g fill="none" stroke="var(--accent)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 24 82 L 24 38 Q 24 26 31.78 35.13 L 68.22 77.87 Q 76 87 76 75 L 76 48"/>
+      </g>
+      <circle cx="76" cy="32.18" r="5.6" fill="var(--dot)"/>
+      <circle cx="38.6" cy="65.4" r="5.6" fill="var(--dot)"/>
+    </svg>
+    <span>Nousys<span class="ai">AI</span></span>
+  </a>
   <nav class="bar__nav" aria-label="Sections">
     <a href="#about">About</a>
     <a href="#philosophy">Philosophy</a>
@@ -308,11 +343,14 @@
   <div class="wrap">
 
     <div class="brand">
-      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4">
-        <circle cx="13" cy="13" r="10.2" stroke-dasharray="52 12" stroke-linecap="round"/>
-        <path d="M13 4.6 A 4.6 4.6 0 1 1 13 13" stroke-linecap="round"/>
+      <svg class="brand__mark" viewBox="12.71 18.93 75.91 75.91" aria-hidden="true">
+        <g class="stroke" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 24 82 L 24 38 Q 24 26 31.78 35.13 L 68.22 77.87 Q 76 87 76 75 L 76 48"/>
+        </g>
+        <circle class="dot" cx="76" cy="32.18" r="5.6"/>
+        <circle class="dot" cx="38.6" cy="65.4" r="5.6"/>
       </svg>
-      <p class="brand__word">Nousys AI</p>
+      <p class="brand__word">Nousys<span class="ai">AI</span></p>
     </div>
 
     <h1 class="tagline">Engineering the self&#8288;-&#8288;awareness that makes <em>autonomy</em> possible</h1>
